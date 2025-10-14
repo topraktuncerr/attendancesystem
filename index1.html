@@ -1,0 +1,650 @@
+                {!user.att[course][week-1] && (
+                  <div className="border-t-2 pt-3">
+                    <p className="text-sm font-bold mb-2 flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      Mazeret Belgesi (Max 5MB)
+                    </p>
+                    <p className="text-xs text-gray-600 mb-2">
+                      ⚠️ Belge ogretmen tarafindan onaylanana kadar devam sayilmaz.
+                    </p>
+                    {hasExc ? (
+                      <div className={'p-3 rounded-xl ' + (hasExc.status === <!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Yoklama - Yaşar Üniversitesi</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // Lucide icons as SVG components
+    const CheckCircle = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    );
+
+    const XCircle = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    );
+
+    const BookOpen = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+      </svg>
+    );
+
+    const Sun = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+    );
+
+    const Moon = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+      </svg>
+    );
+
+    const Bell = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+      </svg>
+    );
+
+    const AlertCircle = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    );
+
+    const Check = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+      </svg>
+    );
+
+    const X = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    );
+
+    const Download = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+    );
+
+    const Target = (props) => (
+      <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" strokeWidth={2} />
+        <circle cx="12" cy="12" r="6" strokeWidth={2} />
+        <circle cx="12" cy="12" r="2" fill="currentColor" />
+      </svg>
+    );
+
+    const App = () => {
+      const [user, setUser] = useState(null);
+      const [type, setType] = useState(null);
+      const [course, setCourse] = useState(null);
+      const [qr, setQr] = useState('');
+      const [code, setCode] = useState('');
+      const [login, setLogin] = useState({ u: '', p: '' });
+      const [week, setWeek] = useState(1);
+      const [time, setTime] = useState(10);
+      const [show, setShow] = useState(0);
+      const [dark, setDark] = useState(false);
+      const [excuses, setExcuses] = useState({});
+
+      const courses = [{ id: 1, code: 'ENGR 4400', name: 'Muhendislik Uyg. Uretken YZ' }];
+      const teachers = [{ id: 1, u: 'ogretmen1', p: 'ogretmen123', name: 'Doc. Dr. Orkun Karabasoglu', c: [1] }];
+      
+      const allStudents = [
+        'Ibrahim Gultekin,18070003013,Insaat', 'Elif Emine Gunal,19070001053,Bilgisayar', 'Erk Yanki Ural,19070008012,Makine',
+        'Erce Ozkan,20070001057,Bilgisayar', 'Ipek Atis,20070002048,Endustri', 'Idil Ece Cevahir,20070007004,Enerji',
+        'Sude Onfidan,20070008016,Makine', 'Omer Arica,20070008017,Makine', 'Selim Mert Kircaali,20070008019,Makine',
+        'Beril Deran Gurbuz,20070008029,Makine', 'Ali Haktan Sigin,21070001004,Bilgisayar', 'Arda Altunhan,21070001051,Bilgisayar',
+        'Ekrem Temel,21070001070,Bilgisayar', 'Nesrin Senturk,21070002005,Endustri', 'Batuhan Sisman,21070002025,Endustri',
+        'Kivanc Efe Ergonul,21070005027,Elektrik', 'Oguz Koyucan,21070005030,Elektrik', 'Zeynep Arslanbuga,21070005042,Elektrik',
+        'Beste Tekin,21070007001,Enerji', 'Ekin Altunkaya,21070007004,Enerji', 'Emre Erisir,21070008009,Makine',
+        'Ismail Can Demirkan,21070008014,Makine', 'Can Girgin,21070008016,Makine', 'Kerem Eroglu,21070008017,Makine',
+        'Armagan Soylu,21070008027,Makine', 'Alp Serkan Merkit,21070008033,Makine', 'Atakan Dincer,21070008034,Makine',
+        'Demet Buyuktas,21070008206,Makine', 'Gurkan Eroglu,22070001041,Bilgisayar', 'Emre Efe Yuksel,22070001055,Bilgisayar',
+        'Suleyman Batu Sari,22070002015,Endustri', 'Kadir Emre Gunes,22070002047,Endustri', 'Toprak Tuncer,22070005040,Elektrik',
+        'Emre Can Hekimoglu,22070005053,Elektrik', 'Ilgar Senol,22070007014,Enerji', 'Eda Nur Caliskan,22070008017,Makine',
+        'Sami Berk Sahin,22070008021,Makine', 'Deniz Unver,22070008026,Makine', 'Aykan Kanli,22070008034,Makine',
+        'Deniz Karatepe,22070008043,Makine', 'Aysegul Karinyarici,22070003022,Insaat', 'Ahmet Ozgur Korkmaz,21070001046,Bilgisayar'
+      ];
+
+      const [stds, setStds] = useState(() => {
+        const saved = localStorage.getItem('qr-students');
+        if (saved) {
+          return JSON.parse(saved);
+        }
+        return allStudents.map((s, i) => {
+          const [name, no, dep] = s.split(',');
+          return { id: i + 1, no, p: '123456', name, dep: dep + ' Muh.', c: [1], att: { 1: Array(14).fill(false) } };
+        });
+      });
+
+      const [excuses, setExcuses] = useState(() => {
+        const saved = localStorage.getItem('qr-excuses');
+        return saved ? JSON.parse(saved) : {};
+      });
+
+      // Verileri kaydet
+      useEffect(() => {
+        localStorage.setItem('qr-students', JSON.stringify(stds));
+      }, [stds]);
+
+      useEffect(() => {
+        localStorage.setItem('qr-excuses', JSON.stringify(excuses));
+      }, [excuses]);
+
+      useEffect(() => {
+        if (type === 'teacher' && course) {
+          genQr();
+          const i = setInterval(() => setTime(p => p <= 1 ? (genQr(), 10) : p - 1), 1000);
+          return () => clearInterval(i);
+        }
+      }, [type, course]);
+
+      const genQr = () => setQr(Math.random().toString(36).substring(2, 8).toUpperCase());
+      const getStds = () => stds.filter(s => s.c.includes(course));
+      const calc = (s) => {
+        const a = s.att[course].filter(x => x).length;
+        return { a, r: (a / 14 * 100).toFixed(1), w: a < 10, rem: 10 - a };
+      };
+
+      const doLogin = (t) => {
+        if (t === 'teacher') {
+          const x = teachers.find(y => y.u === login.u && y.p === login.p);
+          if (x) {
+            setUser(x);
+            setType('teacher');
+            setLogin({ u: '', p: '' });
+          } else {
+            alert('Hata!');
+          }
+        } else {
+          const x = stds.find(y => y.no === login.u && y.p === login.p);
+          if (x) {
+            setUser(x);
+            setType('student');
+            setLogin({ u: '', p: '' });
+          } else {
+            alert('Hata!');
+          }
+        }
+      };
+
+      const submit = () => {
+        if (code.toUpperCase() === qr) {
+          const newStds = stds.map(s => {
+            if (s.id === user.id) {
+              const newAtt = {...s.att};
+              const newWeeks = [...newAtt[course]];
+              newWeeks[week - 1] = true;
+              newAtt[course] = newWeeks;
+              return { ...s, att: newAtt };
+            }
+            return s;
+          });
+          setStds(newStds);
+          const updatedUser = newStds.find(s => s.id === user.id);
+          setUser(updatedUser);
+          alert('Basariyla yoklama alindi!');
+          setCode('');
+        } else {
+          alert('Hatali kod!');
+          setCode('');
+        }
+      };
+
+      const handleExcuse = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          if (file.size > 5000000) {
+            alert('Dosya boyutu 5MB\'dan kucuk olmalidir!');
+            return;
+          }
+          const key = user.id + '_' + course + '_' + week;
+          const reader = new FileReader();
+          reader.onload = () => {
+            setExcuses({...excuses, [key]: { 
+              name: file.name, 
+              data: reader.result, 
+              status: 'pending', 
+              date: new Date().toLocaleDateString('tr-TR'),
+              time: new Date().toLocaleTimeString('tr-TR')
+            }});
+            alert('Mazeret belgesi yuklendi! Ogretmen onayini bekliyor.\n\nONEMLI: Devam sadece ogretmen onayladiginda islenir.');
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+
+      const approveExc = (sid, wk) => {
+        const key = sid + '_' + course + '_' + wk;
+        const newStds = stds.map(s => {
+          if (s.id === sid) {
+            const newAtt = {...s.att};
+            const newWeeks = [...newAtt[course]];
+            newWeeks[wk - 1] = true;
+            newAtt[course] = newWeeks;
+            return { ...s, att: newAtt };
+          }
+          return s;
+        });
+        setStds(newStds);
+        setExcuses({...excuses, [key]: {...excuses[key], status: 'approved'}});
+        alert('Mazeret onaylandi ve devam islendi!');
+      };
+        });
+        setStds(newStds);
+        setExcuses({...excuses, [key]: {...excuses[key], status: 'approved'}});
+        alert('Mazeret onaylandi!');
+      };
+
+      const rejectExc = (sid, wk) => {
+        const key = sid + '_' + course + '_' + wk;
+        setExcuses({...excuses, [key]: {...excuses[key], status: 'rejected'}});
+        alert('Mazeret reddedildi!');
+      };
+
+      const getPendingExc = () => {
+        return Object.entries(excuses).filter(([k, v]) => v.status === 'pending' && k.includes('_' + course + '_')).map(([k, v]) => {
+          const [sid, cid, wk] = k.split('_');
+          return { sid: parseInt(sid), wk: parseInt(wk), std: stds.find(x => x.id === parseInt(sid)), data: v };
+        });
+      };
+
+      const tog = (id) => {
+        const newStds = stds.map(s => {
+          if (s.id === id) {
+            const newAtt = {...s.att};
+            const newWeeks = [...newAtt[course]];
+            newWeeks[week - 1] = !newWeeks[week - 1];
+            newAtt[course] = newWeeks;
+            return { ...s, att: newAtt };
+          }
+          return s;
+        });
+        setStds(newStds);
+      };
+      
+      const bulkMark = (v) => {
+        const newStds = stds.map(s => {
+          if (s.c.includes(course)) {
+            const newAtt = {...s.att};
+            const newWeeks = [...newAtt[course]];
+            newWeeks[week - 1] = v;
+            newAtt[course] = newWeeks;
+            return { ...s, att: newAtt };
+          }
+          return s;
+        });
+        setStds(newStds);
+        alert(v ? 'Tumu var!' : 'Tumu yok!');
+      };
+
+      const expAll = () => {
+        let csv = 'ENGR 4400 TUM HAFTALAR\n\nOgrenci,No,';
+        for (let i = 1; i <= 14; i++) csv += 'H' + i + ',';
+        csv += 'Top,Oran\n';
+        getStds().forEach(s => {
+          const st = calc(s);
+          csv += s.name + ',' + s.no + ',';
+          s.att[course].forEach(a => csv += (a ? 'V' : 'Y') + ',');
+          csv += st.a + ',%' + st.r + '\n';
+        });
+        const b = new Blob([csv], { type: 'text/csv' });
+        const l = document.createElement('a');
+        l.href = URL.createObjectURL(b);
+        l.download = 'TumHaftalar.csv';
+        l.click();
+      };
+
+      const predict = () => {
+        const st = calc(user);
+        if (st.rem <= 0) return 'Devam yukumlulugu tamam!';
+        if (st.rem > (14 - week)) return 'Devam yukumlulugu saglanamaz!';
+        return 'En az ' + st.rem + ' hafta daha gerekli!';
+      };
+
+      const bg = dark ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 to-orange-50';
+      const card = dark ? 'bg-gray-800 text-white' : 'bg-white';
+
+      if (!user) {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-blue-900 to-orange-600 flex items-center justify-center p-4">
+            <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md border-4 border-orange-400">
+              <div className="text-center mb-8">
+                <img src="https://www.yasar.edu.tr/wp-content/themes/yasaruniversitesi/images/logo.png" alt="Logo" className="h-24 mx-auto mb-4" onError={(e) => e.target.style.display = 'none'} />
+                <h1 className="text-4xl font-black text-blue-900">QR YOKLAMA</h1>
+                <p className="text-orange-600 font-bold">Yasar Universitesi</p>
+              </div>
+              <input type="text" placeholder="Kullanici / Okul No" className="w-full px-5 py-4 bg-blue-50 border-2 rounded-2xl mb-4" value={login.u} onChange={(e) => setLogin({...login, u: e.target.value})} />
+              <input type="password" placeholder="Sifre" className="w-full px-5 py-4 bg-blue-50 border-2 rounded-2xl mb-4" value={login.p} onChange={(e) => setLogin({...login, p: e.target.value})} />
+              <div className="grid grid-cols-2 gap-4">
+                <button onClick={() => doLogin('teacher')} className="bg-blue-800 text-white py-4 rounded-2xl font-bold">Ogretmen</button>
+                <button onClick={() => doLogin('student')} className="bg-orange-500 text-white py-4 rounded-2xl font-bold">Ogrenci</button>
+              </div>
+              <div className="mt-6 p-4 bg-blue-50 rounded-xl text-sm">
+                <p className="font-bold">Demo:</p>
+                <p>Ogretmen: ogretmen1 / ogretmen123</p>
+                <p>Ogrenci: 18070003013 / 123456</p>
+              </div>
+              <button 
+                onClick={resetSystem} 
+                className="w-full mt-4 bg-red-600 text-white py-3 rounded-2xl font-bold hover:bg-red-700"
+              >
+                🔄 Sistemi Sifirla
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      if (!course) {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-blue-900 to-orange-600 flex items-center justify-center p-4">
+            <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-2xl border-4 border-orange-400">
+              <div className="text-center mb-8">
+                <BookOpen className="w-16 h-16 text-blue-900 mx-auto mb-4" />
+                <h2 className="text-3xl font-black text-blue-900">Ders Secimi</h2>
+                <p className="text-gray-600">{user.name}</p>
+              </div>
+              {courses.map(c => (
+                <button key={c.id} onClick={() => setCourse(c.id)} className="w-full p-6 bg-gradient-to-r from-blue-50 to-orange-50 border-2 rounded-2xl hover:border-orange-500 mb-4">
+                  <p className="text-xl font-black text-blue-900">{c.code}</p>
+                  <p className="text-gray-700">{c.name}</p>
+                </button>
+              ))}
+              <button onClick={() => setUser(null)} className="w-full bg-gray-200 py-3 rounded-2xl font-bold">Cikis</button>
+            </div>
+          </div>
+        );
+      }
+
+      if (type === 'teacher') {
+        const cs = getStds();
+        const crit = cs.filter(s => calc(s).w).length;
+        const pend = getPendingExc();
+
+        return (
+          <div className={bg + ' min-h-screen p-4'}>
+            <div className="max-w-7xl mx-auto">
+              <div className={card + ' rounded-2xl shadow-lg p-4 mb-4'}>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h2 className="text-xl font-black">Ogretmen Paneli</h2>
+                    <p className="text-xs opacity-80">{user.name}</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <button onClick={() => setDark(!dark)} className="p-2 rounded-xl bg-gray-200">
+                      {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                    </button>
+                    {pend.length > 0 && (
+                      <div className="relative">
+                        <Bell className="w-5 h-5 text-red-600" />
+                        <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">{pend.length}</span>
+                      </div>
+                    )}
+                    <button onClick={resetSystem} className="bg-red-600 text-white px-3 py-2 rounded-xl text-xs font-bold hover:bg-red-700">Sifirla</button>
+                    <button onClick={() => {setUser(null); setCourse(null);}} className="bg-blue-900 text-white px-3 py-2 rounded-xl text-xs font-bold">Cikis</button>
+                  </div>
+                </div>
+              </div>
+
+              {crit > 0 && (
+                <div className="bg-red-100 border-2 border-red-400 rounded-xl p-3 mb-4 flex gap-2">
+                  <AlertCircle className="w-5 h-5 text-red-600" />
+                  <p className="text-sm font-bold text-red-900">{crit} ogrenci kritik!</p>
+                </div>
+              )}
+
+              {pend.length > 0 && (
+                <div className="bg-yellow-100 border-2 border-yellow-400 rounded-xl p-4 mb-4">
+                  <h3 className="font-bold text-yellow-900 mb-3">Onay Bekleyen Mazeret ({pend.length})</h3>
+                  <div className="space-y-2">
+                    {pend.map(e => (
+                      <div key={e.sid + '_' + e.wk} className="bg-white p-3 rounded-xl flex justify-between items-center">
+                        <div>
+                          <p className="font-bold text-sm">{e.std ? e.std.name : 'Bilinmeyen'}</p>
+                          <p className="text-xs">Hafta {e.wk}</p>
+                        </div>
+                        <div className="flex gap-2">
+                          <button onClick={() => approveExc(e.sid, e.wk)} className="bg-green-600 text-white p-2 rounded-lg">
+                            <Check className="w-4 h-4" />
+                          </button>
+                          <button onClick={() => rejectExc(e.sid, e.wk)} className="bg-red-600 text-white p-2 rounded-lg">
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="grid lg:grid-cols-3 gap-4 mb-4">
+                <div className="bg-gradient-to-br from-blue-800 to-orange-600 rounded-2xl p-6 text-white">
+                  <div className="flex justify-between mb-3">
+                    <h3 className="font-bold">QR Kod</h3>
+                    <div className="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">{time}s</div>
+                  </div>
+                  <div className="bg-white rounded-xl p-6 mb-3">
+                    <div className="text-5xl font-mono font-black text-blue-900 text-center">{qr}</div>
+                  </div>
+                  <select value={week} onChange={(e) => setWeek(Number(e.target.value))} className="w-full px-3 py-2 rounded-xl bg-white bg-opacity-20 text-white font-bold text-sm">
+                    {[...Array(14)].map((_, i) => <option key={i+1} value={i+1} className="bg-blue-800 text-white">Hafta {i+1}</option>)}
+                  </select>
+                </div>
+
+                <div className="lg:col-span-2">
+                  <div className={card + ' rounded-2xl shadow-lg p-4 mb-4'}>
+                    <div className="flex justify-between mb-3 flex-wrap gap-2">
+                      <h3 className="font-bold text-sm">Islemler</h3>
+                      <div className="flex gap-1">
+                        <button onClick={() => bulkMark(true)} className="bg-green-600 text-white px-2 py-1 rounded text-xs">Tumu Var</button>
+                        <button onClick={() => bulkMark(false)} className="bg-red-600 text-white px-2 py-1 rounded text-xs">Tumu Yok</button>
+                        <button onClick={expAll} className="bg-green-600 text-white px-2 py-1 rounded text-xs flex items-center gap-1">
+                          <Download className="w-3 h-3" />Excel
+                        </button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button onClick={() => setShow(show === 1 ? 0 : 1)} className={'p-3 rounded-xl font-bold text-xs ' + (show === 1 ? 'bg-blue-800 text-white' : 'bg-gray-100 text-gray-900')}>Ogrenciler</button>
+                      <button onClick={() => setShow(show === 2 ? 0 : 2)} className={'p-3 rounded-xl font-bold text-xs ' + (show === 2 ? 'bg-blue-800 text-white' : 'bg-gray-100 text-gray-900')}>Cizelge</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {show === 1 && (
+                <div className={card + ' rounded-2xl shadow-lg p-4'}>
+                  <div className="grid md:grid-cols-3 gap-2 max-h-96 overflow-y-auto">
+                    {cs.map(s => {
+                      const st = calc(s);
+                      return (
+                        <div key={s.id} className={'p-3 rounded-xl border ' + (st.w ? 'bg-red-50 border-red-300' : 'bg-green-50 border-green-300')}>
+                          <div className="flex justify-between items-center">
+                            <div className="flex-1">
+                              <p className="font-bold text-xs truncate">{s.name}</p>
+                              <p className="text-xs">%{st.r}</p>
+                            </div>
+                            <button onClick={() => tog(s.id)} className={'w-7 h-7 rounded flex items-center justify-center ' + (s.att[course][week-1] ? 'bg-green-600' : 'bg-gray-300')}>
+                              {s.att[course][week-1] ? <CheckCircle className="w-4 h-4 text-white" /> : <XCircle className="w-4 h-4 text-gray-600" />}
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {show === 2 && (
+                <div className={card + ' rounded-2xl shadow-lg p-4 overflow-x-auto'}>
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="border-b-2">
+                        <th className="p-1 text-left">Ogrenci</th>
+                        {[...Array(14)].map((_, i) => <th key={i} className="p-1">H{i+1}</th>)}
+                        <th className="p-1">%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cs.map(s => {
+                        const st = calc(s);
+                        return (
+                          <tr key={s.id} className="border-b">
+                            <td className="p-1 font-semibold">{s.name}</td>
+                            {s.att[course].map((a, i) => (
+                              <td key={i} className="p-1 text-center">
+                                {a ? <CheckCircle className="w-3 h-3 text-green-600 mx-auto" /> : <XCircle className="w-3 h-3 text-red-400 mx-auto" />}
+                              </td>
+                            ))}
+                            <td className={'p-1 text-center font-bold ' + (st.w ? 'text-red-600' : 'text-green-600')}>{st.r}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      }
+
+      const st = calc(user);
+      const pred = predict();
+      const excKey = user.id + '_' + course + '_' + week;
+      const hasExc = excuses[excKey];
+
+      return (
+        <div className={bg + ' min-h-screen p-4'}>
+          <div className="max-w-5xl mx-auto">
+            <div className={card + ' rounded-2xl shadow-lg p-4 mb-4'}>
+              <div className="flex justify-between items-center">
+                <div>
+                  <h2 className="text-xl font-bold">Ogrenci Paneli</h2>
+                  <p className="text-xs opacity-80">{user.name} - {user.no}</p>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={() => setDark(!dark)} className="p-2 rounded-xl bg-gray-200">
+                    {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  </button>
+                  <button onClick={resetSystem} className="bg-red-600 text-white px-3 py-2 rounded-xl text-xs font-bold hover:bg-red-700">Sifirla</button>
+                  <button onClick={() => {setUser(null); setCourse(null);}} className="bg-blue-900 text-white px-3 py-2 rounded-xl text-xs font-bold">Cikis</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
+              <div className={card + ' rounded-2xl shadow-lg p-6'}>
+                <h3 className="text-lg font-bold mb-4">Yoklama Kodu</h3>
+                <input 
+                  type="text" 
+                  placeholder="6 haneli kod" 
+                  className="w-full px-6 py-4 border-2 rounded-xl text-2xl text-center font-mono font-bold uppercase mb-4" 
+                  value={code} 
+                  onChange={(e) => setCode(e.target.value.toUpperCase())} 
+                  maxLength={6} 
+                />
+                <button 
+                  onClick={submit} 
+                  disabled={code.length !== 6} 
+                  className="w-full bg-orange-500 text-white py-4 rounded-xl font-bold disabled:bg-gray-300 mb-3"
+                >
+                  Yoklama Ver
+                </button>
+                
+                {!user.att[course][week-1] && (
+                  <div className="border-t-2 pt-3">
+                    <p className="text-sm font-bold mb-2 flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      Mazeret Belgesi
+                    </p>
+                    {hasExc ? (
+                      <div className={'p-3 rounded-xl ' + (hasExc.status === 'pending' ? 'bg-yellow-100' : hasExc.status === 'approved' ? 'bg-green-100' : 'bg-red-100')}>
+                        <p className="text-xs font-bold">{hasExc.name}</p>
+                        <p className="text-xs">Durum: {hasExc.status === 'pending' ? 'Bekliyor' : hasExc.status === 'approved' ? 'Onaylandi' : 'Reddedildi'}</p>
+                      </div>
+                    ) : (
+                      <input 
+                        type="file" 
+                        accept=".pdf,.jpg,.png" 
+                        onChange={handleExcuse} 
+                        className="w-full text-xs p-2 border rounded-xl" 
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <div className={'rounded-2xl shadow-lg p-6 text-white ' + (st.w ? 'bg-red-600' : 'bg-green-600')}>
+                <h3 className="text-lg font-bold mb-4">Devam Durumu</h3>
+                <div className="text-center">
+                  <div className="text-6xl font-black mb-2">{st.a}</div>
+                  <div className="text-xl mb-4">/ 14 hafta</div>
+                  <div className="bg-white bg-opacity-20 rounded-xl p-4 mb-3">
+                    <div className="text-4xl font-black">%{st.r}</div>
+                  </div>
+                  {st.w && (
+                    <div className="bg-white bg-opacity-20 p-3 rounded-xl">
+                      <p className="font-bold">UYARI!</p>
+                      <p className="text-sm">Devam yukumlulugu saglanamadi</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className={card + ' rounded-2xl shadow-lg p-6 mb-4'}>
+              <div className="flex items-center gap-3">
+                <Target className="w-6 h-6 text-blue-600" />
+                <div>
+                  <h3 className="font-bold">Tahmin</h3>
+                  <p className="text-sm">{pred}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className={card + ' rounded-2xl shadow-lg p-6'}>
+              <h3 className="text-lg font-bold mb-4">Haftalik Durum</h3>
+              <div className="grid grid-cols-7 gap-2">
+                {user.att[course].map((a, i) => (
+                  <div key={i} className={'p-3 rounded-xl text-center font-bold ' + (a ? 'bg-green-500 text-white' : 'bg-gray-200')}>
+                    <div className="text-xs">H{i+1}</div>
+                    <div className="text-lg">{a ? '✓' : '✗'}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
