@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yasar Universitesi Yoklama Sistemi</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const CheckCircle = () => <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>;
+        const XCircle = () => <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd"/></svg>;
+        const BookOpen = ({className}) => <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>;
+        const RefreshCw = ({className}) => <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>;
+
+        const App = () => {
+          const [user, setUser] = useState(null);
+          const [type, setType] = useState(null);
+          const [course, setCourse] = useState(null);
+          const [qr, setQr] = useState('');
+          const [code, setCode] = useState('');
+          const [login, setLogin] = useState({ u: '', p: '' });
+          const [week, setWeek] = useState(1);
+          const [time, setTime] = useState(10);
+
+          const courses = [{ id: 1, code: 'ENGR 4400', name: 'Muhendislik Uyg. Uretken YZ' }];
+          const teachers = [{ id: 1, u: 'ogretmen1', p: 'ogretmen123', name: 'Doc. Dr. Orkun Karabasoglu', c: [1] }];
+          
+          const allStudents = [
+            'Ibrahim Gultekin,18070003013,Insaat', 
+            'Elif Emine Gunal,19070001053,Bilgisayar', 
+            'Erk Yanki Ural,19070008012,Makine',
+            'Erce Ozkan,20070001057,Bilgisayar', 
+            'Ipek Atis,20070002048,Endustri', 
+            'Idil Ece Cevahir,20070007004,Enerji',
+            'Sude Onfidan,20070008016,Makine', 
+            'Omer Arica,20070008017,Makine', 
+            'Selim Mert Kircaali,20070008019,Makine',
+            'Beril Deran Gurbuz,20070008029,Makine', 
+            'Ali Haktan Sigin,21070001004,Bilgisayar', 
+            'Arda Altunhan,21070001051,Bilgisayar',
+            'Ekrem Temel,21070001070,Bilgisayar', 
+            'Nesrin Senturk,21070002005,Endustri', 
+            'Batuhan Sisman,21070002025,Endustri',
+            'Kivanc Efe Ergonul,21070005027,Elektrik', 
+            'Oguz Koyucan,21070005030,Elektrik', 
+            'Zeynep Arslanbuga,21070005042,Elektrik',
+            'Beste Tekin,21070007001,Enerji', 
+            'Ekin Altunkaya,21070007004,Enerji', 
+            'Emre Erisir,21070008009,Makine',
+            'Ismail Can Demirkan,21070008014,Makine', 
+            'Can Girgin,21070008016,Makine', 
+            'Kerem Eroglu,21070008017,Makine',
+            'Armagan Soylu,21070008027,Makine', 
+            'Alp Serkan Merkit,21070008033,Makine', 
+            'Atakan Dincer,21070008034,Makine',
+            'Demet Buyuktas,21070008206,Makine', 
+            'Gurkan Eroglu,22070001041,Bilgisayar', 
+            'Emre Efe Yuksel,22070001055,Bilgisayar',
+            'Suleyman Batu Sari,22070002015,Endustri', 
+            'Kadir Emre Gunes,22070002047,Endustri', 
+            'Toprak Tuncer,22070005040,Elektrik',
+            'Emre Can Hekimoglu,22070005053,Elektrik', 
+            'Ilgar Senol,22070007014,Enerji', 
+            'Eda Nur Caliskan,22070008017,Makine',
+            'Sami Berk Sahin,22070008021,Makine', 
+            'Deniz Unver,22070008026,Makine', 
+            'Aykan Kanli,22070008034,Makine',
+            'Deniz Karatepe,22070008043,Makine', 
+            'Aysegul Karinyarici,22070003022,Insaat', 
+            'Ahmet Ozgur Korkmaz,21070001046,Bilgisayar'
+          ];
+
+          const [stds, setStds] = useState(() => {
+            const saved = localStorage.getItem('students_data');
+            if (saved) {
+              return JSON.parse(saved);
+            }
+            return allStudents.map((s, i) => {
+              const [name, no, dep] = s.split(',');
+              return { id: i + 1, no, p: '123456', name, dep: dep + ' Muh.', c: [1], att: { 1: Array(14).fill(false) } };
+            });
+          });
+
+          // Öğrencileri kaydet
+          useEffect(() => {
+            localStorage.setItem('students_data', JSON.stringify(stds));
+          }, [stds]);
+
+          // 10 saniyede değişen kod - ama localStorage ile paylaşımlı
+          const generateCode = (w) => {
+            const now = new Date();
+            const period = Math.floor(now.getTime() / 10000);
+            const seed = period + w * 10000;
+            let hash = seed;
+            for (let i = 0; i < 3; i++) {
+              hash = ((hash * 9301 + 49297) % 233280);
+            }
+            return (hash.toString(36) + '00000').substring(0, 6).toUpperCase();
+          };
+
+          useEffect(() => {
+            if (type === 'teacher' && course) {
+              const update = () => {
+                const newCode = generateCode(week);
+                setQr(newCode);
+                
+                // Kodu localStorage'a kaydet - tüm cihazlar görebilsin
+                const codeData = {
+                  code: newCode,
+                  week: week,
+                  timestamp: Date.now()
+                };
+                localStorage.setItem('active_qr_code', JSON.stringify(codeData));
+                
+                const now = new Date();
+                const sec = Math.floor((now.getTime() / 1000) % 10);
+                setTime(10 - sec);
+              };
+              update();
+              const i = setInterval(update, 1000);
+              return () => clearInterval(i);
+            }
+          }, [type, course, week]);
+
+          const doLogin = (t) => {
+            if (t === 'teacher') {
+              const x = teachers.find(y => y.u === login.u && y.p === login.p);
+              x ? (setUser(x), setType('teacher'), setLogin({ u: '', p: '' })) : alert('Hata!');
+            } else {
+              const x = stds.find(y => y.no === login.u && y.p === login.p);
+              x ? (setUser(x), setType('student'), setLogin({ u: '', p: '' })) : alert('Hata!');
+            }
+          };
+
+          const submit = () => {
+            const now = Date.now();
+            const currentPeriod = Math.floor(now / 10000);
+            
+            // localStorage'dan aktif kodu kontrol et
+            const savedCode = localStorage.getItem('active_qr_code');
+            if (savedCode) {
+              const codeData = JSON.parse(savedCode);
+              
+              // Kod 30 saniyeden eski mi? (3 period tolerans)
+              if (now - codeData.timestamp < 30000) {
+                if (code.toUpperCase() === codeData.code) {
+                  const matchedWeek = codeData.week;
+                  const newStds = stds.map(s => s.id === user.id ? { 
+                    ...s, 
+                    att: { ...s.att, [course]: s.att[course].map((x, i) => i === matchedWeek - 1 ? true : x) } 
+                  } : s);
+                  setStds(newStds);
+                  setUser(newStds.find(s => s.id === user.id));
+                  alert('✓ Başarıyla yoklama alındı! (Hafta ' + matchedWeek + ')');
+                  setCode('');
+                  return;
+                }
+              }
+            }
+            
+            // Eğer localStorage çalışmazsa, zaman bazlı algoritmayı kullan
+            // Son 3 period'u kontrol et (30 saniye tolerans)
+            let found = false;
+            for (let periodOffset = 0; periodOffset <= 3; periodOffset++) {
+              const checkPeriod = currentPeriod - periodOffset;
+              
+              for (let w = 1; w <= 14; w++) {
+                const seed = checkPeriod + w * 10000;
+                let hash = seed;
+                for (let i = 0; i < 3; i++) {
+                  hash = ((hash * 9301 + 49297) % 233280);
+                }
+                const checkCode = (hash.toString(36) + '00000').substring(0, 6).toUpperCase();
+                
+                if (code.toUpperCase() === checkCode) {
+                  const newStds = stds.map(s => s.id === user.id ? { 
+                    ...s, 
+                    att: { ...s.att, [course]: s.att[course].map((x, i) => i === w - 1 ? true : x) } 
+                  } : s);
+                  setStds(newStds);
+                  setUser(newStds.find(s => s.id === user.id));
+                  alert('✓ Başarıyla yoklama alındı! (Hafta ' + w + ')');
+                  setCode('');
+                  found = true;
+                  break;
+                }
+              }
+              if (found) break;
+            }
+            
+            if (!found) {
+              alert('✗ Hatalı veya süresi dolmuş kod!\n\nÖğretmenin ekranındaki GÜNCEL kodu girin.\nKod 10 saniyede değişir.');
+              setCode('');
+            }
+          };
+
+          const calc = (s) => {
+            const a = s.att[course].filter(x => x).length;
+            return { a, r: (a / 14 * 100).toFixed(1), w: a < 10 };
+          };
+
+          if (!user) {
+            return (
+              <div className="min-h-screen bg-gradient-to-br from-blue-900 to-orange-600 flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md border-4 border-orange-400">
+                  <div className="text-center mb-8">
+                    <h1 className="text-4xl font-black text-blue-900">KOD SİSTEMİ</h1>
+                    <p className="text-orange-600 font-bold">Yasar Universitesi</p>
+                  </div>
+                  <input 
+                    type="text" 
+                    placeholder="Kullanici / Okul No" 
+                    className="w-full px-5 py-4 bg-blue-50 border-2 rounded-2xl mb-4" 
+                    value={login.u} 
+                    onChange={(e) => setLogin({...login, u: e.target.value})} 
+                  />
+                  <input 
+                    type="password" 
+                    placeholder="Sifre" 
+                    className="w-full px-5 py-4 bg-blue-50 border-2 rounded-2xl mb-4" 
+                    value={login.p} 
+                    onChange={(e) => setLogin({...login, p: e.target.value})} 
+                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <button onClick={() => doLogin('teacher')} className="bg-blue-800 text-white py-4 rounded-2xl font-bold hover:bg-blue-900">
+                      Ogretmen
+                    </button>
+                    <button onClick={() => doLogin('student')} className="bg-orange-500 text-white py-4 rounded-2xl font-bold hover:bg-orange-600">
+                      Ogrenci
+                    </button>
+                  </div>
+                  <div className="mt-6 p-4 bg-blue-50 rounded-xl text-sm">
+                    <p className="font-bold">Demo:</p>
+                    <p>Ogr: ogretmen1/ogretmen123</p>
+                    <p>Std: 18070003013/123456</p>
+                  </div>
+                  <div className="mt-4 p-3 bg-green-50 border-2 border-green-300 rounded-xl text-xs text-green-800">
+                    <p className="font-bold">💡 İPUCU:</p>
+                    <p>Farklı cihazlarda çalışır! Safari, Chrome, Opera, Firefox desteklenir.</p>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          if (!course) {
+            return (
+              <div className="min-h-screen bg-gradient-to-br from-blue-900 to-orange-600 flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-2xl border-4 border-orange-400">
+                  <div className="text-center mb-8">
+                    <BookOpen className="w-16 h-16 text-blue-900 mx-auto mb-4" />
+                    <h2 className="text-3xl font-black text-blue-900">Ders Secimi</h2>
+                    <p className="text-gray-600">{user.name}</p>
+                  </div>
+                  {courses.map(c => (
+                    <button key={c.id} onClick={() => setCourse(c.id)} className="w-full p-6 bg-gradient-to-r from-blue-50 to-orange-50 border-2 rounded-2xl hover:border-orange-500 mb-4">
+                      <p className="text-xl font-black text-blue-900">{c.code}</p>
+                      <p className="text-gray-700">{c.name}</p>
+                    </button>
+                  ))}
+                  <button onClick={() => setUser(null)} className="w-full bg-gray-200 py-3 rounded-2xl font-bold hover:bg-gray-300">
+                    Cikis
+                  </button>
+                </div>
+              </div>
+            );
+          }
+
+          if (type === 'teacher') {
+            const cs = stds.filter(s => s.c.includes(course));
+            
+            return (
+              <div className="min-h-screen bg-gradient-to-br from-blue-50 to-orange-50 p-4">
+                <div className="max-w-7xl mx-auto">
+                  <div className="bg-white rounded-2xl shadow-lg p-4 mb-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h2 className="text-xl font-black">Ogretmen Paneli</h2>
+                        <p className="text-xs">{user.name}</p>
+                      </div>
+                      <button onClick={() => setCourse(null)} className="bg-orange-500 text-white px-3 py-2 rounded-xl text-xs font-bold">
+                        Cikis
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-blue-800 to-orange-600 rounded-2xl p-6 text-white mb-4">
+                    <div className="flex justify-between mb-3">
+                      <h3 className="font-bold text-lg">QR Kod (Hafta {week})</h3>
+                      <div className="bg-white bg-opacity-20 px-3 py-1 rounded-xl text-sm flex items-center gap-2">
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                        {time}s
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-8 mb-4">
+                      <div className="text-6xl font-mono font-black text-blue-900 text-center tracking-wider">{qr}</div>
+                    </div>
+                    <select 
+                      value={week} 
+                      onChange={(e) => setWeek(Number(e.target.value))} 
+                      className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-20 text-white font-bold text-sm mb-3"
+                    >
+                      {[...Array(14)].map((_, i) => (
+                        <option key={i+1} value={i+1} className="bg-blue-800 text-white">Hafta {i+1}</option>
+                      ))}
+                    </select>
+                    <div className="bg-green-500 bg-opacity-30 rounded-xl p-3 text-sm font-bold text-center">
+                      ✓ Çoklu cihaz desteği aktif
+                    </div>
+                    <div className="bg-red-500 bg-opacity-30 rounded-xl p-3 text-sm font-bold text-center mt-2">
+                      🔒 Kod 10 saniyede değişir - 30 saniye geçerli
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-2xl shadow-lg p-4">
+                    <h3 className="font-bold mb-3">Ogrenciler ({cs.length})</h3>
+                    <div className="space-y-2 max-h-96 overflow-y-auto">
+                      {cs.map(s => {
+                        const st = calc(s);
+                        return (
+                          <div key={s.id} className={'p-3 rounded-xl ' + (st.w ? 'bg-red-50 border-2 border-red-300' : 'bg-green-50 border-2 border-green-300')}>
+                            <div className="flex justify-between items-center">
+                              <div>
+                                <p className="font-bold text-sm">{s.name}</p>
+                                <p className="text-xs text-gray-600">{s.no} - {s.dep}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-lg font-bold">{st.w ? '❌' : '✓'}</p>
+                                <p className="text-xs">%{st.r}</p>
+                                <p className="text-xs text-gray-600">({st.a}/14)</p>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          // Student panel
+          const st = calc(user);
+          
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-orange-50 p-4">
+              <div className="max-w-5xl mx-auto">
+                <div className="bg-white rounded-2xl shadow-lg p-4 mb-4">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h2 className="text-xl font-bold">Ogrenci Paneli</h2>
+                      <p className="text-xs">{user.name} - {user.no}</p>
+                    </div>
+                    <button onClick={() => setCourse(null)} className="bg-orange-500 text-white px-3 py-2 rounded-xl text-xs font-bold">
+                      Cikis
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div className="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 className="text-lg font-bold mb-4">Yoklama Kodu</h3>
+                    <div className="mb-4 bg-red-50 border-2 border-red-200 p-4 rounded-xl">
+                      <p className="text-sm text-red-800 font-bold text-center">⚠️ KOD 10 SANİYEDE DEĞİŞİR!</p>
+                      <p className="text-xs text-red-600 text-center mt-1">Sınıfta olduğunuzdan emin olun</p>
+                      <p className="text-xs text-green-700 text-center mt-2 font-bold">✓ Farklı cihazlardan çalışır</p>
+                    </div>
+                    <input 
+                      type="text" 
+                      placeholder="6 HANELİ KOD" 
+                      className="w-full px-6 py-5 border-4 border-blue-200 rounded-2xl text-3xl text-center font-mono font-black uppercase mb-4 focus:border-blue-500 focus:outline-none" 
+                      value={code} 
+                      onChange={(e) => setCode(e.target.value.toUpperCase())} 
+                      maxLength={6} 
+                    />
+                    <button 
+                      onClick={submit} 
+                      disabled={code.length !== 6} 
+                      className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-5 rounded-2xl font-black text-lg disabled:bg-gray-300 disabled:from-gray-300 disabled:to-gray-300 shadow-lg hover:shadow-xl transition-all"
+                    >
+                      YOKLAMA VER
+                    </button>
+                  </div>
+
+                  <div className={'rounded-2xl shadow-lg p-6 text-white ' + (st.w ? 'bg-gradient-to-br from-red-500 to-red-700' : 'bg-gradient-to-br from-green-500 to-green-700')}>
+                    <h3 className="text-lg font-bold mb-4">Devam Durumu</h3>
+                    <div className="text-center">
+                      <div className="text-7xl font-black mb-2">{st.a}</div>
+                      <div className="text-2xl mb-4">/ 14 hafta</div>
+                      <div className="bg-white bg-opacity-20 rounded-2xl p-5 mb-3">
+                        <div className="text-5xl font-black">%{st.r}</div>
+                      </div>
+                      {st.w && (
+                        <div className="bg-white bg-opacity-20 p-4 rounded-xl animate-pulse">
+                          <p className="font-bold text-lg">⚠️ UYARI!</p>
+                          <p className="text-sm">Devam yükümlülüğü sağlanamadı</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-2xl shadow-lg p-6">
+                  <h3 className="text-lg font-bold mb-4">Haftalık Durum</h3>
+                  <div className="grid grid-cols-7 gap-2">
+                    {user.att[course].map((a, i) => (
+                      <div key={i} className={'p-4 rounded-xl text-center font-bold shadow ' + (a ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500')}>
+                        <div className="text-xs mb-1">H{i+1}</div>
+                        <div className="text-2xl">{a ? '✓' : '✗'}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
